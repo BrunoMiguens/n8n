@@ -22,5 +22,10 @@ RUN \
 	mkdir .n8n && \
 	chown node:node .n8n
 ENV SHELL /bin/sh
+
+USER root
+WORKDIR /usr/local/lib/node_modules/n8n
+RUN npm install -g $CUSTOM_MODULES
 USER node
+
 ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
