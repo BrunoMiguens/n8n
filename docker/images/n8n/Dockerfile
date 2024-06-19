@@ -2,11 +2,13 @@ ARG NODE_VERSION=20
 FROM n8nio/base:${NODE_VERSION}
 
 ARG N8N_VERSION
+ARG CUSTOM_MODULES
 RUN if [ -z "$N8N_VERSION" ] ; then echo "The N8N_VERSION argument is missing!" ; exit 1; fi
 
 ENV N8N_VERSION=${N8N_VERSION}
 ENV NODE_ENV=production
 ENV N8N_RELEASE_TYPE=stable
+ENV CUSTOM_MODULES=${CUSTOM_MODULES}
 RUN set -eux; \
 	npm install -g --omit=dev n8n@${N8N_VERSION} --ignore-scripts && \
 	npm rebuild --prefix=/usr/local/lib/node_modules/n8n sqlite3 && \
